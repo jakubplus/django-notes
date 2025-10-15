@@ -1,0 +1,17 @@
+{% extends "notes/base.html" %}
+{% block content %}
+  <h1>Edytuj notatkę</h1>
+  <div class="card">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div style="flex:1 1 100%">{{ form.title.label_tag }} {{ form.title }}</div>
+        <div style="flex:1 1 100%">{{ form.content.label_tag }} {{ form.content }}</div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a href="{% url 'notes:list' %}" class="btn btn-link">Wróć</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

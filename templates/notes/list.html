@@ -1,0 +1,37 @@
+{% extends "notes/base.html" %}
+{% block content %}
+  <h1>Notatki</h1>
+
+  <div class="card">
+    <h3>Dodaj nową notatkę</h3>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div style="flex:1 1 100%">{{ form.title.label_tag }} {{ form.title }}</div>
+        <div style="flex:1 1 100%">{{ form.content.label_tag }} {{ form.content }}</div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+      </div>
+    </form>
+  </div>
+
+  {% for note in notes %}
+    <div class="card">
+      <div class="row" style="justify-content: space-between;">
+        <h3 style="margin: 0;">{{ note.title }}</h3>
+        <span class="muted">Dodano: {{ note.created_at|date:"Y-m-d H:i" }}</span>
+      </div>
+      <p style="white-space: pre-wrap;">{{ note.content }}</p>
+      <div class="row">
+        <a class="btn" href="{% url 'notes:edit' note.pk %}">Edytuj</a>
+        <form method="post" action="{% url 'notes:delete' note.pk %}" onsubmit="return confirm('Usunąć notatkę?');">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Usuń</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p>Brak notatek.</p>
+  {% endfor %}
+{% endblock %}
