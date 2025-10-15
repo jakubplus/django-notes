@@ -9,3 +9,6 @@ pip install Django==4.2.7
 ## Uruchomienie
 python manage.py migrate
 python manage.py runserver
+
+## Demo
+https://django-notes-e6wafvdllq-lm.a.run.app/notes/
